@@ -6,10 +6,11 @@ phases:
       - yum -y install jq || True
   build:
     commands:
-      - echo "validando plantillas CloudFormation..."
+      - echo "Validando s3_group_policy.yaml..."
       - aws cloudformation validate-template --template-body file://templates/s3_group_policy.yaml
+      - echo "Validando ec2_s3_role.yaml..."
       - aws cloudformation validate-template --template-body file://templates/ec2_s3_role.yaml
-      - echo "OK validación completa"
+      - echo "✅ Validación completa sin errores"
 artifacts:
   files:
     - templates/*.yaml

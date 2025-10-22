@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Bucket + Group + Policy (permiso RW al bucket)
+
 Resources:
   MyBucket:
     Type: AWS::S3::Bucket
@@ -16,24 +17,28 @@ Resources:
     DependsOn: MyGroup
     Properties:
       PolicyName: DevAcademyBucketAccess
-      Groups: [ !Ref MyGroup ]
+      Groups:
+        - !Ref MyGroup
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          - Effect: Allow
-            Action: 
-              - s3:ListBucket
-            Resource:
-              - !Sub "arn:aws:s3:::lab-${AWS::AccountId}-personal"
-            
+          # Permisos sobre el bucket (List)
           - Effect: Allow
             Action:
-              - s3:GetObject
-              - s3:PutObject
-            Resource:
-              - !Sub "arn:aws:s3:::lab-${AWS::AccountId}-personal/*"
+              - "s3:ListBucket"
+            Resource: !Sub "arn:aws:s3:::lab-${AWS::AccountId}-personal"
+
+          # Permisos sobre los objetos dentro del bucket (Get/Put)
+          - Effect: Allow
+            Action:
+              - "s3:GetObject"
+              - "s3:PutObject"
+            Resource: !Sub "arn:aws:s3:::lab-${AWS::AccountId}-personal/*"
 
 Outputs:
-  BucketName: { Value: !Ref MyBucket }
-  GroupName:  { Value: !Ref MyGroup }
-  PolicyName: { Value: !Ref MyPolicy }
+  BucketName:
+    Value: !Ref MyBucket
+  GroupName:
+    Value: !Ref MyGroup
+  PolicyName:
+    Value: !Ref MyPolicy

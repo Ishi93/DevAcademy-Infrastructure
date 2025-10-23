@@ -14,11 +14,11 @@ Resources:
 
   MyPolicy:
     Type: AWS::IAM::Policy
-    DependsOn: MyGroup2
+    DependsOn: MyGroup
     Properties:
       PolicyName: DevAcademyBucketAccess2
       Groups:
-        - !Ref MyGroup2
+        - !Ref MyGroup
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -26,14 +26,14 @@ Resources:
           - Effect: Allow
             Action:
               - "s3:ListBucket"
-            Resource: !Sub "arn:aws:s3:::lab-${AWS::AccountId}-personal"
+            Resource: !Sub "arn:aws:s3:::lab2-${AWS::AccountId}-personal"
 
           # Permisos sobre los objetos dentro del bucket (Get/Put)
           - Effect: Allow
             Action:
               - "s3:GetObject"
               - "s3:PutObject"
-            Resource: !Sub "arn:aws:s3:::lab-${AWS::AccountId}-personal/*"
+            Resource: !Sub "arn:aws:s3:::lab2-${AWS::AccountId}-personal/*"
 
 Outputs:
   BucketName:

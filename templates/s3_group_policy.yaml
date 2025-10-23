@@ -5,20 +5,20 @@ Resources:
   MyBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "lab-${AWS::AccountId}-personal"
+      BucketName: !Sub "lab2-${AWS::AccountId}-personal"
 
   MyGroup:
     Type: AWS::IAM::Group
     Properties:
-      GroupName: DevAcademyLabGroup
+      GroupName: DevAcademyLabGroup2
 
   MyPolicy:
     Type: AWS::IAM::Policy
-    DependsOn: MyGroup
+    DependsOn: MyGroup2
     Properties:
-      PolicyName: DevAcademyBucketAccess
+      PolicyName: DevAcademyBucketAccess2
       Groups:
-        - !Ref MyGroup
+        - !Ref MyGroup2
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
